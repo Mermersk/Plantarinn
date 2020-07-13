@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Plantarinn - Markmið</string>
+    <string name="input_fjoldi_plantna">Fjöldi Plantna</string>
+    <string name="input_klukkutimar">Klukkutímar</string>
+    <string name="input_minutur">Minútur</string>
+    <string name="button_send">Send</string>
+    <string name="display_message_appBar_label">This is the text you entered:</string>
+    <string name="button_play">Play</string>
+    <string name="skograektin_logo">Logo of the Icelandic forestry services</string>
+    <string name="button_byrja">Byrja</string>
+</resources>
