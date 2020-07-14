@@ -61,9 +61,21 @@ class MainActivity : AppCompatActivity() {
             val missingFieldAlert = Toast.makeText(this, "Fylltu inn í öll þrjú svæðin", Toast.LENGTH_SHORT)
             missingFieldAlert.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 270)
             missingFieldAlert.show()
+            //Return out of byrja if these conditions are not met
+            return
         }
 
-        println(numberOfPlantsStr)
+        val pp = PlantPlan(hoursStr.toInt(), minutesStr.toInt(), numberOfPlantsStr.toInt())
+
+        //In order to "skip" a parameter in the list, In this case numberOfPlants, I need to supply
+        //named parameters like this one:
+        val ss = PlantPlan(hoursStr.toInt(), minutesStr.toInt(), _numberOfBakkar = 20, _bakkaSize = 40)
+
+
+
+        //println(numberOfPlantsStr)
 
     }
+
+
 }
