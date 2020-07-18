@@ -8,4 +8,5 @@
     <string name="button_play">Play</string>
     <string name="skograektin_logo">Logo of the Icelandic forestry services</string>
     <string name="button_byrja">Byrja</string>
+    <string name="PlantingActivity_appBar_label">Your Planting plan</string>
 </resources>

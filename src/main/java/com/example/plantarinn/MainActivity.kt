@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.Toast
 
 const val EXTRA_MESSAGE = "com.example.plantarinn.MESSAGE"
+//ID for the extra info going to PlantingActivity
+const val EXTRA_PLANTING = "com.example.plantarinn.PLANTPLAN"
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
 
     //called when send button is pressed
     fun sendMessage(view: View) {
@@ -67,9 +68,13 @@ class MainActivity : AppCompatActivity() {
 
         val pp = PlantPlan(hoursStr.toInt(), minutesStr.toInt(), numberOfPlantsStr.toInt())
 
+        val byrjaIntent = Intent(this, PlantingActivity::class.java).apply {
+            putExtra(EXTRA_PLANTING, pp)
+        }
+        startActivity(byrjaIntent)
         //In order to "skip" a parameter in the list, In this case numberOfPlants, I need to supply
         //named parameters like this one:
-        val ss = PlantPlan(hoursStr.toInt(), minutesStr.toInt(), _numberOfBakkar = 20, _bakkaSize = 40)
+        //val ss = PlantPlan(hoursStr.toInt(), minutesStr.toInt(), _numberOfBakkar = 20, _bakkaSize = 40)
 
 
 
