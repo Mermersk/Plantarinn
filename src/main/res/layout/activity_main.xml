@@ -61,15 +61,17 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="324dp"
-        android:layout_height="284dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:alpha="0.6"
         android:contentDescription="@string/skograektin_logo"
         android:cropToPadding="false"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8"
         app:srcCompat="@drawable/skograektin_vertical" />
 
     <Button

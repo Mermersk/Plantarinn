@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="plantingGraphics_width">319dp</dimen>
+    <dimen name="plantingGraphics_height">595dp</dimen>
+
+</resources>
