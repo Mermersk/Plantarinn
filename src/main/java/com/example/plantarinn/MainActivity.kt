@@ -42,11 +42,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //called when play button is pressed
-    fun playSound(view: View) {
-        var mp: MediaPlayer? = MediaPlayer.create(this, R.raw.duck1)
-        mp?.start()
-    }
 
     fun byrja(view: View) {
         val numberOfPlants = findViewById<EditText>(R.id.inputFjoldiPlantna)

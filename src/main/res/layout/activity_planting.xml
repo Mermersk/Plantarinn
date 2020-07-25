@@ -9,9 +9,8 @@
 
     <com.example.plantarinn.PlantingMainGraphics
         android:id="@+id/plantingMainGraphics"
-        android:layout_width="@dimen/plantingGraphics_width"
-        android:layout_height="@dimen/plantingGraphics_height"
-        android:layout_marginTop="32dp"
+        android:layout_width="330dp"
+        android:layout_height="535dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

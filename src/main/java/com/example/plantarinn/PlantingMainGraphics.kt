@@ -8,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.RotateDrawable
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Build
 import android.text.TextPaint
 import android.util.AttributeSet
@@ -21,11 +23,28 @@ class PlantingMainGraphics : View {
 
     private var currentAngle = -90f
     private val tre: Drawable = resources.getDrawable(R.drawable.tre, null)
-    private val rr = RotateDrawable()
+    //rotatable tree
+    private val rTre: RotateDrawable = RotateDrawable()
+    private val white: Paint = Paint()
+    private val green: Paint = Paint()
+    /*
+        Gets the width/height in pixels based on the current pixel density of phone.
+        This way all graphics on different devices are correct. If I were to just define it in
+        pixels (for example in drawCircle(...) Then it would get all messed up on different phone screen sizes).
+        (Both because of different resolutions and different pixel densities)
+        */
+    private var width: Int? = null
+    private var height: Int? = null
+    private val xMiddle: Float
+    private val yMiddle: Float
 
-    //constructor(context: Context) : super(context) {
+    private val anim: ValueAnimator
+    //private val readySP: SoundPool
+    //private val oneLoopCompleteSoundID: Int
+
+    constructor(context: Context) : super(context) {
         //init(null, 0)
-    //}
+    }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         //init(attrs, 0)
@@ -33,8 +52,9 @@ class PlantingMainGraphics : View {
     }
 
     init {
+        visibility = View.INVISIBLE
 
-        val anim = ValueAnimator.ofFloat(0f, 360f)
+        anim = ValueAnimator.ofFloat(0f, 360f)
         anim.apply {
             duration = 2000
             repeatMode = ValueAnimator.RESTART
@@ -42,57 +62,75 @@ class PlantingMainGraphics : View {
             interpolator = LinearInterpolator()
             addUpdateListener { ValueAnimator ->
                 currentAngle = ValueAnimator.animatedValue as Float
-                //invalidate requests the view to be readrawn, aka: will call onDraw again
+                //invalidate requests the view to be redrawn, aka: will call onDraw again
                 invalidate()
             }
         }
 
+        //anim.start()
+
+        white.setARGB(255, 255, 255, 255)
+        white.color = Color.parseColor("#fffafafa")
+        white.flags = 1
+
+        green.color = ContextCompat.getColor(context, R.color.colorPrimary)
+        //Should enable anti-aliasing
+        green.flags = 1
+
+        width = resources.getDimensionPixelSize(R.dimen.plantingGraphics_width)
+        height = resources.getDimensionPixelSize(R.dimen.plantingGraphics_height)
+        xMiddle = (width!! /2).toFloat()
+        yMiddle = (height!! /2).toFloat()
+
+        rTre.drawable = tre
+        rTre.setBounds((xMiddle - 125).toInt(), (yMiddle - 250).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt())
+        rTre.fromDegrees = 0f
+        rTre.toDegrees = 360f
+        rTre.pivotX = 0.5f
+        rTre.pivotY = 0.6f
+
+        println("Width of plantingView ${width}")
+        println("height of plantingView ${height}")
+
+        //val sp = SoundPool.Builder()
+        //sp.setMaxStreams(1)
+        //readySP = sp.build()
+        //oneLoopCompleteSoundID = readySP.load(context, R.raw.duck1, 1)
+
+
+
+    }
+    //Makes the view visible and starts the animation
+    public fun startAnimation() {
+        visibility = View.VISIBLE
         anim.start()
+    }
 
-        //tre.setBounds(0, 0, 250, 250)
+    public fun setAnimationDuration(d: Long) {
+        anim.duration = d
+    }
 
-        rr.drawable = tre
-        rr.fromDegrees = 0f
-        rr.toDegrees = 360f
-        rr.pivotX = 0.5f
-        rr.pivotY = 0.6f
+    //called when play button is pressed
+    private fun playSound() {
+        //var mp: MediaPlayer? = MediaPlayer.create(context, R.raw.duck1)
+        //mp?.start()
+        //mp?.setOnCompletionListener { MediaPlayer ->
+            //MediaPlayer.stop()
+        //}
+        //val sp = SoundPool.Builder()
+        //sp.setMaxStreams(1)
+        //val readySP = sp.build()
+        //val oneLoopCompleteSoundID = readySP.load(context, R.raw.duck1, 1)
+        //println("sdsdsd ${readySP.play(oneLoopCompleteSoundID, 1.0f, 1.0f, 1, 0, 1.0f)}")
+        //readySP.play(oneLoopCompleteSoundID, 1.0f, 1.0f, 1, 0, 1.0f)
+
 
 
     }
 
-
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        //{
-
-        /*
-        Gets the width/height in pixels based on the current pixel density of phone.
-        This way all graphics on different devices are correct. If I were to just define it in
-        pixels (for example in drawCircle(...) Then it would get all messed up on different phone screen sizes).
-        (Both bevause of different resolutions and different pixel densities)
-        */
-        val width = resources.getDimensionPixelSize(R.dimen.plantingGraphics_width)
-        val height = resources.getDimensionPixelSize(R.dimen.plantingGraphics_height)
-
-        //middle in float
-        val xMiddle = (width/2).toFloat()
-        val yMiddle = (height/2).toFloat()
-
-        println("Width of platningView ${width}")
-        println("height of platningView ${height}")
-
-        val white = Paint()
-        white.setARGB(255, 255, 255, 255)
-        white.color = Color.parseColor("#fffafafa")
-        white.flags = 1
-        //canvas.drawCircle(xMiddle, yMiddle, 300f, blue)
-
-        val green = Paint()
-        green.color = ContextCompat.getColor(context, R.color.colorPrimary)
-        //Should enable anti-aliasing
-        green.flags = 1
 
         //println("Is antialiasing on? ${green.isAntiAlias}")
         println("current Angle: ${currentAngle}")
@@ -105,12 +143,16 @@ class PlantingMainGraphics : View {
         canvas.drawCircle(xMiddle, yMiddle - 100f, 200f, white)
         //tre.draw(canvas)
 
-        rr.setBounds((xMiddle - 125).toInt(), (yMiddle - 250).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt())
-        //rr.setBounds(arcBox[0] + )
         //After a lot of looking, this level attribute goes from 0 to 10000 (0% to 100%) In this case on fromDegrees 0 to toDegrees 360
-        rr.level = currentAngle.toInt() * 28
-        rr.draw(canvas)
+        rTre.level = currentAngle.toInt() * 28
+        rTre.draw(canvas)
 
+
+        //if (currentAngle < 1.0f) {
+            //playSound()
+        //}
+
+        println(anim.repeatCount)
 
     }
 
