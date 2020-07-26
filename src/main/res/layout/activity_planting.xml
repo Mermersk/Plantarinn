@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlantingActivity">
@@ -14,4 +13,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/plantSpeedInfo"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/totalPlantingTimeInfo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plantingMainGraphics" />
+
+    <TextView
+        android:id="@+id/totalPlantingTimeInfo"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/plantSpeedInfo"
+        app:layout_constraintTop_toBottomOf="@+id/plantingMainGraphics" />
+
+    <TextView
+        android:id="@+id/currentPlantingProgressInfo"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalPlantingTimeInfo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
