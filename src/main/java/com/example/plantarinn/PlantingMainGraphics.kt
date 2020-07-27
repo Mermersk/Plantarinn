@@ -35,8 +35,8 @@ class PlantingMainGraphics : View {
         */
     private var width: Int? = null
     private var height: Int? = null
-    private val xMiddle: Float
-    private val yMiddle: Float
+    private var xMiddle: Float = 0f
+    private var yMiddle: Float = 0f
 
     private val anim: ValueAnimator
     //private val readySP: SoundPool
@@ -77,13 +77,15 @@ class PlantingMainGraphics : View {
         //Should enable anti-aliasing
         green.flags = 1
 
-        width = resources.getDimensionPixelSize(R.dimen.plantingGraphics_width)
-        height = resources.getDimensionPixelSize(R.dimen.plantingGraphics_height)
-        xMiddle = (width!! /2).toFloat()
-        yMiddle = (height!! /2).toFloat()
+        //width = measuredWidth
+        //println("Width with getWidth: ${width}")
+        //height = measuredHeight //resources.getDimensionPixelSize(R.dimen.plantingGraphics_height)
+
+        //xMiddle = (width!! /2).toFloat()
+        //yMiddle = (height!! /2).toFloat()
 
         rTre.drawable = tre
-        rTre.setBounds((xMiddle - 125).toInt(), (yMiddle - 250).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt())
+        //rTre.setBounds((xMiddle - 125).toInt(), (yMiddle - 250).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt())
         rTre.fromDegrees = 0f
         rTre.toDegrees = 360f
         rTre.pivotX = 0.5f
@@ -128,19 +130,32 @@ class PlantingMainGraphics : View {
 
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        //width = w
+        //height = h
+
+    }
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         //println("Is antialiasing on? ${green.isAntiAlias}")
         println("current Angle: ${currentAngle}")
+        //width = measuredWidth
+        println("xMiddle: ${xMiddle}")
 
-        val arcBox = floatArrayOf(xMiddle - 400f, yMiddle - 500f, xMiddle + 400f, yMiddle + 300f)
+        val arcBox = floatArrayOf(xMiddle - 400f, yMiddle - 400f, xMiddle + 400f, yMiddle + 400f)
 
         canvas.drawArc(arcBox[0], arcBox[1], arcBox[2], arcBox[3], -90f,
             currentAngle, true, green)
 
-        canvas.drawCircle(xMiddle, yMiddle - 100f, 200f, white)
+        //canvas.drawArc(0f, 0f, width!!.toFloat(), height!!.toFloat(), -90f,
+            //currentAngle, true, green)
+
+        canvas.drawCircle(xMiddle, yMiddle, 200f, white)
+
         //tre.draw(canvas)
 
         //After a lot of looking, this level attribute goes from 0 to 10000 (0% to 100%) In this case on fromDegrees 0 to toDegrees 360
@@ -158,5 +173,12 @@ class PlantingMainGraphics : View {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        width = MeasureSpec.getSize(widthMeasureSpec) //Gets the calculated width of view
+        height = MeasureSpec.getSize(heightMeasureSpec)
+        xMiddle = (width!! /2).toFloat()
+        yMiddle = (height!! /2).toFloat()
+        rTre.setBounds((xMiddle - 125).toInt(), (yMiddle - 150).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt() + 100)
+
+        println("Is this the right width?  ${MeasureSpec.getSize(widthMeasureSpec)}")
     }
 }

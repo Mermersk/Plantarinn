@@ -42,7 +42,6 @@ class PlantingActivity : AppCompatActivity() {
         totalPlantingTimeInfo.text = "${pp.hours} hours & ${pp.minutes} minutes"
         totalPlantingTimeInfo.setBackgroundColor(Color.LTGRAY)
 
-
     }
     
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

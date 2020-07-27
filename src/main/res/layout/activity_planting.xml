@@ -8,11 +8,14 @@
 
     <com.example.plantarinn.PlantingMainGraphics
         android:id="@+id/plantingMainGraphics"
-        android:layout_width="330dp"
-        android:layout_height="535dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
     <TextView
         android:id="@+id/plantSpeedInfo"

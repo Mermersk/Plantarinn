@@ -11,7 +11,9 @@
         android:theme="@style/AppTheme" >
         <activity android:name=".PlantingActivity"
             android:label="@string/PlantingActivity_appBar_label"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DisplayMessageActivity"
             android:label="@string/display_message_appBar_label"
