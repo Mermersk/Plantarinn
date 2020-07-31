@@ -142,9 +142,9 @@ class PlantingMainGraphics : View {
         super.onDraw(canvas)
 
         //println("Is antialiasing on? ${green.isAntiAlias}")
-        println("current Angle: ${currentAngle}")
+        //println("current Angle: ${currentAngle}")
         //width = measuredWidth
-        println("xMiddle: ${xMiddle}")
+        //println("xMiddle: ${xMiddle}")
 
         val arcBox = floatArrayOf(xMiddle - 400f, yMiddle - 400f, xMiddle + 400f, yMiddle + 400f)
 
@@ -156,18 +156,11 @@ class PlantingMainGraphics : View {
 
         canvas.drawCircle(xMiddle, yMiddle, 200f, white)
 
-        //tre.draw(canvas)
-
         //After a lot of looking, this level attribute goes from 0 to 10000 (0% to 100%) In this case on fromDegrees 0 to toDegrees 360
         rTre.level = currentAngle.toInt() * 28
         rTre.draw(canvas)
 
-
-        //if (currentAngle < 1.0f) {
-            //playSound()
-        //}
-
-        println(anim.repeatCount)
+        //println(anim.repeatCount)
 
     }
 
@@ -179,6 +172,6 @@ class PlantingMainGraphics : View {
         yMiddle = (height!! /2).toFloat()
         rTre.setBounds((xMiddle - 125).toInt(), (yMiddle - 150).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt() + 100)
 
-        println("Is this the right width?  ${MeasureSpec.getSize(widthMeasureSpec)}")
+        //println("Is this the right width?  ${MeasureSpec.getSize(widthMeasureSpec)}")
     }
 }

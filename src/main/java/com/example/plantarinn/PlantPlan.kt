@@ -7,7 +7,7 @@ import android.os.Parcelable
 private const val ONE_UNIT_TIME = 60
 
 //Doing the "default parameter" way of achieving constructor overloading
-class PlantPlan constructor(val hours: Int, val minutes: Int, private var numberOfPlants: Int? = null, _numberOfBakkar: Int? = null, _bakkaSize: Int? = null) :
+class PlantPlan constructor(val hours: Int, val minutes: Int, var numberOfPlants: Int? = null, _numberOfBakkar: Int? = null, _bakkaSize: Int? = null) :
     Parcelable {
 
     //Should be the total planting time measured in seconds

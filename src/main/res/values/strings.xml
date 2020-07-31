@@ -7,6 +7,6 @@
     <string name="display_message_appBar_label">This is the text you entered:</string>
     <string name="button_play">Play</string>
     <string name="skograektin_logo">Logo of the Icelandic forestry services</string>
-    <string name="button_byrja">Byrja</string>
-    <string name="PlantingActivity_appBar_label">Your Planting Plan</string>
+    <string name="button_byrja">Hefja Plöntun</string>
+    <string name="PlantingActivity_appBar_label">Plöntuplanið Þitt:</string>
 </resources>
