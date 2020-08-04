@@ -37,14 +37,20 @@ class PlantingActivityService : Service() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-
-        //val channelID = "PlantingActivity Notification"
-        //val notChannel = NotificationChannel(channelID, "PA Channel", NotificationManager.IMPORTANCE_DEFAULT)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        //notificationManager.createNotificationChannel(notChannel)
+
+        lateinit var notChannel: NotificationChannel
+        //if statements for backwards compatability
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+             notChannel = NotificationChannel(channelID, "PA Channel", NotificationManager.IMPORTANCE_DEFAULT)
+
+         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(notChannel as NotificationChannel)
+        }
 
         //var plantedTreesCount: Int = intent!!.getIntExtra("plantedTreesCount", 0)
         //val totalPlants: Int = intent!!.getIntExtra("totalPlants", -1)

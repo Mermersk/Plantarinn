@@ -13,6 +13,7 @@ import android.media.SoundPool
 import android.os.Build
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.annotation.RequiresApi
@@ -37,6 +38,9 @@ class PlantingMainGraphics : View {
     private var height: Int? = null
     private var xMiddle: Float = 0f
     private var yMiddle: Float = 0f
+
+    //private lateinit var arcBox: FloatArray
+    private var circleRadius: Float
 
     private val anim: ValueAnimator
     //private val readySP: SoundPool
@@ -99,6 +103,13 @@ class PlantingMainGraphics : View {
         //readySP = sp.build()
         //oneLoopCompleteSoundID = readySP.load(context, R.raw.duck1, 1)
 
+        val screenDensity = resources.displayMetrics.density
+        //arcBox = floatArrayOf(xMiddle - (100f * screenDensity), yMiddle - (100f * screenDensity), xMiddle + (100f * screenDensity), yMiddle + (100f * screenDensity))
+        //val rTreRect = rTre.bounds
+        //val arcBox = floatArrayOf(xMiddle - 400f, yMiddle - 400f, xMiddle + 400f, yMiddle + 400f)
+        //arcBox = floatArrayOf(rTreRect.left.toFloat() - 50f, rTreRect.top.toFloat(), rTreRect.right.toFloat() + 400f, rTreRect.bottom.toFloat())
+
+        circleRadius = 80f * screenDensity
 
 
     }
@@ -145,33 +156,46 @@ class PlantingMainGraphics : View {
         //println("current Angle: ${currentAngle}")
         //width = measuredWidth
         //println("xMiddle: ${xMiddle}")
+        val rTreRect = rTre.bounds
+        val screenDensity = resources.displayMetrics.density
+        val arcBox = floatArrayOf(xMiddle - (150f * screenDensity), yMiddle - (150f * screenDensity), xMiddle + (150f * screenDensity), yMiddle + (150f * screenDensity))
+        //val arcBox = floatArrayOf(rTreRect.left.toFloat() - (50f * screenDensity), rTreRect.top.toFloat() - (75f * screenDensity), rTreRect.right.toFloat() + (50f * screenDensity), rTreRect.bottom.toFloat() + (25f * screenDensity))
 
-        val arcBox = floatArrayOf(xMiddle - 400f, yMiddle - 400f, xMiddle + 400f, yMiddle + 400f)
+        //canvas.drawArc(arcBox[0], arcBox[1], arcBox[2], arcBox[3], -90f,
+            //currentAngle, true, green)
 
-        canvas.drawArc(arcBox[0], arcBox[1], arcBox[2], arcBox[3], -90f,
+        canvas.drawArc(0f, 0f, width!!.toFloat(), height!!.toFloat(), -90f,
             currentAngle, true, green)
 
         //canvas.drawArc(0f, 0f, width!!.toFloat(), height!!.toFloat(), -90f,
             //currentAngle, true, green)
 
-        canvas.drawCircle(xMiddle, yMiddle, 200f, white)
+
+        canvas.drawCircle(xMiddle, yMiddle, circleRadius, white)
 
         //After a lot of looking, this level attribute goes from 0 to 10000 (0% to 100%) In this case on fromDegrees 0 to toDegrees 360
         rTre.level = currentAngle.toInt() * 28
         rTre.draw(canvas)
 
+        //val dm = DisplayMetrics()
+        //println("Density of this screen:  ${resources.displayMetrics.density}")
         //println(anim.repeatCount)
 
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        width = MeasureSpec.getSize(widthMeasureSpec) //Gets the calculated width of view
+
+        val screenDensity = resources.displayMetrics.density
+
+        width = MeasureSpec.getSize(widthMeasureSpec)  //Gets the calculated width of view in pixels
         height = MeasureSpec.getSize(heightMeasureSpec)
         xMiddle = (width!! /2).toFloat()
         yMiddle = (height!! /2).toFloat()
-        rTre.setBounds((xMiddle - 125).toInt(), (yMiddle - 150).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt() + 100)
 
-        //println("Is this the right width?  ${MeasureSpec.getSize(widthMeasureSpec)}")
+        rTre.setBounds((xMiddle - (50 * screenDensity)).toInt(), (yMiddle - (60 * screenDensity)).toInt(), (xMiddle + (50 * screenDensity)).toInt(), (yMiddle + (40 * screenDensity)).toInt() )
+
+        println("Density of this screen:  ${resources.displayMetrics.density}")
+        println("Is this the right width?  ${MeasureSpec.getSize(widthMeasureSpec)}")
     }
 }
