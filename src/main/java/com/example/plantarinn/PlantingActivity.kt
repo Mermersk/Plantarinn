@@ -113,7 +113,9 @@ class PlantingActivity : AppCompatActivity() {
 
         Intent(this, PlantingActivityService::class.java).also { intent ->
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
-            startService(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent)
+            }
         }
     }
 

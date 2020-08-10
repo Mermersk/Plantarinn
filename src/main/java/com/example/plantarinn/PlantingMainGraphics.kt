@@ -24,7 +24,6 @@ class PlantingMainGraphics : View {
 
     private var currentAngle = -90f
     private val tre: Drawable = resources.getDrawable(R.drawable.tre, null)
-    //rotatable tree
     private val rTre: RotateDrawable = RotateDrawable()
     private val white: Paint = Paint()
     private val green: Paint = Paint()
@@ -39,19 +38,15 @@ class PlantingMainGraphics : View {
     private var xMiddle: Float = 0f
     private var yMiddle: Float = 0f
 
-    //private lateinit var arcBox: FloatArray
     private var circleRadius: Float
 
     private val anim: ValueAnimator
-    //private val readySP: SoundPool
-    //private val oneLoopCompleteSoundID: Int
 
     constructor(context: Context) : super(context) {
-        //init(null, 0)
+
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        //init(attrs, 0)
 
     }
 
@@ -71,8 +66,6 @@ class PlantingMainGraphics : View {
             }
         }
 
-        //anim.start()
-
         white.setARGB(255, 255, 255, 255)
         white.color = Color.parseColor("#fffafafa")
         white.flags = 1
@@ -81,12 +74,6 @@ class PlantingMainGraphics : View {
         //Should enable anti-aliasing
         green.flags = 1
 
-        //width = measuredWidth
-        //println("Width with getWidth: ${width}")
-        //height = measuredHeight //resources.getDimensionPixelSize(R.dimen.plantingGraphics_height)
-
-        //xMiddle = (width!! /2).toFloat()
-        //yMiddle = (height!! /2).toFloat()
 
         rTre.drawable = tre
         //rTre.setBounds((xMiddle - 125).toInt(), (yMiddle - 250).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt())
@@ -98,19 +85,10 @@ class PlantingMainGraphics : View {
         println("Width of plantingView ${width}")
         println("height of plantingView ${height}")
 
-        //val sp = SoundPool.Builder()
-        //sp.setMaxStreams(1)
-        //readySP = sp.build()
-        //oneLoopCompleteSoundID = readySP.load(context, R.raw.duck1, 1)
 
         val screenDensity = resources.displayMetrics.density
-        //arcBox = floatArrayOf(xMiddle - (100f * screenDensity), yMiddle - (100f * screenDensity), xMiddle + (100f * screenDensity), yMiddle + (100f * screenDensity))
-        //val rTreRect = rTre.bounds
-        //val arcBox = floatArrayOf(xMiddle - 400f, yMiddle - 400f, xMiddle + 400f, yMiddle + 400f)
-        //arcBox = floatArrayOf(rTreRect.left.toFloat() - 50f, rTreRect.top.toFloat(), rTreRect.right.toFloat() + 400f, rTreRect.bottom.toFloat())
 
         circleRadius = 80f * screenDensity
-
 
     }
     //Makes the view visible and starts the animation
@@ -123,63 +101,27 @@ class PlantingMainGraphics : View {
         anim.duration = d
     }
 
-    //called when play button is pressed
-    private fun playSound() {
-        //var mp: MediaPlayer? = MediaPlayer.create(context, R.raw.duck1)
-        //mp?.start()
-        //mp?.setOnCompletionListener { MediaPlayer ->
-            //MediaPlayer.stop()
-        //}
-        //val sp = SoundPool.Builder()
-        //sp.setMaxStreams(1)
-        //val readySP = sp.build()
-        //val oneLoopCompleteSoundID = readySP.load(context, R.raw.duck1, 1)
-        //println("sdsdsd ${readySP.play(oneLoopCompleteSoundID, 1.0f, 1.0f, 1, 0, 1.0f)}")
-        //readySP.play(oneLoopCompleteSoundID, 1.0f, 1.0f, 1, 0, 1.0f)
-
-
-
-    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        //width = w
-        //height = h
 
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
+        //super.onDraw(canvas)
 
-        //println("Is antialiasing on? ${green.isAntiAlias}")
-        //println("current Angle: ${currentAngle}")
-        //width = measuredWidth
-        //println("xMiddle: ${xMiddle}")
-        val rTreRect = rTre.bounds
-        val screenDensity = resources.displayMetrics.density
-        val arcBox = floatArrayOf(xMiddle - (150f * screenDensity), yMiddle - (150f * screenDensity), xMiddle + (150f * screenDensity), yMiddle + (150f * screenDensity))
+        //val arcBox = floatArrayOf(xMiddle - (150f * screenDensity), yMiddle - (150f * screenDensity), xMiddle + (150f * screenDensity), yMiddle + (150f * screenDensity))
         //val arcBox = floatArrayOf(rTreRect.left.toFloat() - (50f * screenDensity), rTreRect.top.toFloat() - (75f * screenDensity), rTreRect.right.toFloat() + (50f * screenDensity), rTreRect.bottom.toFloat() + (25f * screenDensity))
-
-        //canvas.drawArc(arcBox[0], arcBox[1], arcBox[2], arcBox[3], -90f,
-            //currentAngle, true, green)
 
         canvas.drawArc(0f, 0f, width!!.toFloat(), height!!.toFloat(), -90f,
             currentAngle, true, green)
 
-        //canvas.drawArc(0f, 0f, width!!.toFloat(), height!!.toFloat(), -90f,
-            //currentAngle, true, green)
-
-
         canvas.drawCircle(xMiddle, yMiddle, circleRadius, white)
 
         //After a lot of looking, this level attribute goes from 0 to 10000 (0% to 100%) In this case on fromDegrees 0 to toDegrees 360
-        rTre.level = currentAngle.toInt() * 28
+        rTre.level = (currentAngle * 27.78f).toInt()
         rTre.draw(canvas)
-
-        //val dm = DisplayMetrics()
-        //println("Density of this screen:  ${resources.displayMetrics.density}")
-        //println(anim.repeatCount)
 
     }
 
@@ -189,7 +131,9 @@ class PlantingMainGraphics : View {
         val screenDensity = resources.displayMetrics.density
 
         width = MeasureSpec.getSize(widthMeasureSpec)  //Gets the calculated width of view in pixels
-        height = MeasureSpec.getSize(heightMeasureSpec)
+        //10 August edit: Height is now equal to width, this is to keep a 1:1 aspect ratio such that the arc-drawings is always a perfect circle.
+        //Think this way didnt work until I calculated all values with the screen density included :S
+        height = MeasureSpec.getSize(widthMeasureSpec)
         xMiddle = (width!! /2).toFloat()
         yMiddle = (height!! /2).toFloat()
 

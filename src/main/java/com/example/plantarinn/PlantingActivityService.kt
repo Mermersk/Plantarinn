@@ -45,18 +45,14 @@ class PlantingActivityService : Service() {
         //if statements for backwards compatability
          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
              notChannel = NotificationChannel(channelID, "PA Channel", NotificationManager.IMPORTANCE_DEFAULT)
-
          }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(notChannel as NotificationChannel)
         }
 
-        //var plantedTreesCount: Int = intent!!.getIntExtra("plantedTreesCount", 0)
-        //val totalPlants: Int = intent!!.getIntExtra("totalPlants", -1)
         //putting in Intent into the notification so that user can return to the activity when notification is clicked
         val backToAppintent = Intent(this, PlantingActivity::class.java)
-
 
         //intent.addCategory(Intent.CATEGORY_LAUNCHER)
         backToAppintent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -81,10 +77,6 @@ class PlantingActivityService : Service() {
         //return super.onStartCommand(intent, flags, startId)
     }
 
-
-    //override fun startForegroundService(service: Intent?): ComponentName? {
-        //return super.startForegroundService(service)
-    //}
 
     fun updateNotification(updatedText: String) {
 
