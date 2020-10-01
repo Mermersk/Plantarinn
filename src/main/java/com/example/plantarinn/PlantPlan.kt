@@ -24,48 +24,12 @@ class PlantPlan constructor(val hours: Int, val minutes: Int, var numberOfPlants
     init {
         if (_numberOfBakkar != null && _bakkaSize != null) {
             numberOfPlants = _numberOfBakkar * _bakkaSize
-            println("Constrctor type where fjoldibakka and bakkaSize was called. Calculated numberofPlants is: $numberOfPlants")
         }
 
         totalTimeS = (hours * ONE_UNIT_TIME * ONE_UNIT_TIME) + (minutes * ONE_UNIT_TIME)
         plantInterval = (totalTimeS.toFloat() / numberOfPlants?.toFloat()!!)
-
-        println("totalTime in seconds $totalTimeS")
-        println("plantInterval: $plantInterval")
     }
-    //val tt = "First $numberOfPlants".also(::println)
 
-    //init {
-    //val plantInterval: Double = (totalTimeS / numberOfPlants).toDouble()
-    //}
-
-    /* Late night edit: All codo below achieved instead with optional default parameters!!!
-    //Instance variables
-    //private val numberOfPlants: Int
-    //private val hours: Int
-    //private val minutes: Int
-
-    //Multiple secondary constructors, defined which to use based on parameters supplied. Constructor overloading!
-    //constructor(_numberOfPlants: Int, _hours: Int, _minutes: Int) {
-        //Now these 3 values are properties of the class, if they come just through the constructor then they are not properties of the class
-        //numberOfPlants = _numberOfPlants
-        //hours = _hours
-        //minutes = _minutes
-
-        //totalTimeS = (hours * ONE_UNIT_TIME * ONE_UNIT_TIME) + (minutes * ONE_UNIT_TIME)
-        //println("totalTime in seconds $totalTimeS (1 constructor)")
-    //}
-
-    //constructor(_numberOfBakkar: Int, _bakkaSize: Int, _hours: Int, _minutes: Int) {
-        //numberOfPlants = _numberOfBakkar * _bakkaSize
-        //hours = _hours
-        //minutes = _minutes
-
-        //totalTimeS = (hours * ONE_UNIT_TIME * ONE_UNIT_TIME) + (minutes * ONE_UNIT_TIME)
-        //println("totalTime in seconds $totalTimeS (2 constructor)")
-    //}
-
-    */
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(hours)
         parcel.writeInt(minutes)

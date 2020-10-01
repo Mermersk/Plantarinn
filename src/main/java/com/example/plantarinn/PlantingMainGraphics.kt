@@ -3,17 +3,13 @@ package com.example.plantarinn
 import android.animation.ValueAnimator
 import android.animation.ValueAnimator.INFINITE
 import android.content.Context
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.BitmapFactory;
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.RotateDrawable
-import android.media.MediaPlayer
-import android.media.SoundPool
 import android.os.Build
-import android.text.TextPaint
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.annotation.RequiresApi
@@ -76,7 +72,6 @@ class PlantingMainGraphics : View {
 
 
         rTre.drawable = tre
-        //rTre.setBounds((xMiddle - 125).toInt(), (yMiddle - 250).toInt(), (xMiddle + 125).toInt(), (yMiddle).toInt())
         rTre.fromDegrees = 0f
         rTre.toDegrees = 360f
         rTre.pivotX = 0.5f
@@ -92,27 +87,21 @@ class PlantingMainGraphics : View {
 
     }
     //Makes the view visible and starts the animation
-    public fun startAnimation() {
+    fun startAnimation() {
         visibility = View.VISIBLE
         anim.start()
     }
 
-    public fun setAnimationDuration(d: Long) {
+    fun setAnimationDuration(d: Long) {
         anim.duration = d
     }
 
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onDraw(canvas: Canvas) {
-        //super.onDraw(canvas)
-
-        //val arcBox = floatArrayOf(xMiddle - (150f * screenDensity), yMiddle - (150f * screenDensity), xMiddle + (150f * screenDensity), yMiddle + (150f * screenDensity))
-        //val arcBox = floatArrayOf(rTreRect.left.toFloat() - (50f * screenDensity), rTreRect.top.toFloat() - (75f * screenDensity), rTreRect.right.toFloat() + (50f * screenDensity), rTreRect.bottom.toFloat() + (25f * screenDensity))
 
         canvas.drawArc(0f, 0f, width!!.toFloat(), height!!.toFloat(), -90f,
             currentAngle, true, green)
@@ -139,7 +128,7 @@ class PlantingMainGraphics : View {
 
         rTre.setBounds((xMiddle - (50 * screenDensity)).toInt(), (yMiddle - (60 * screenDensity)).toInt(), (xMiddle + (50 * screenDensity)).toInt(), (yMiddle + (40 * screenDensity)).toInt() )
 
-        println("Density of this screen:  ${resources.displayMetrics.density}")
-        println("Is this the right width?  ${MeasureSpec.getSize(widthMeasureSpec)}")
+        //println("Density of this screen:  ${resources.displayMetrics.density}")
+        //println("Is this the right width?  ${MeasureSpec.getSize(widthMeasureSpec)}")
     }
 }

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    /*
     //called when send button is pressed
     fun sendMessage(view: View) {
         val textField = findViewById<EditText>(R.id.inputFjoldiPlantna)
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
+
+    */
+
 
 
     fun byrja(view: View) {
@@ -67,13 +71,6 @@ class MainActivity : AppCompatActivity() {
             putExtra(EXTRA_PLANTING, pp)
         }
         startActivity(byrjaIntent)
-        //In order to "skip" a parameter in the list, In this case numberOfPlants, I need to supply
-        //named parameters like this one:
-        //val ss = PlantPlan(hoursStr.toInt(), minutesStr.toInt(), _numberOfBakkar = 20, _bakkaSize = 40)
-
-
-
-        //println(numberOfPlantsStr)
 
     }
 

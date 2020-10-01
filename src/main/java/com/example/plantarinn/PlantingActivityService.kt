@@ -1,17 +1,16 @@
 package com.example.plantarinn
 
-import android.annotation.SuppressLint
-import android.app.*
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.media.SoundPool
 import android.os.*
-import android.os.Vibrator
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import java.util.*
-
 
 /*
 This should be a foreground service
@@ -22,7 +21,7 @@ class PlantingActivityService : Service() {
     private val channelID = "PlantingActivity Notification"
     private lateinit var notificationBuilder: NotificationCompat.Builder
     private val notificationID = 500
-    val timer: Timer = Timer()
+    private val timer: Timer = Timer()
     var plantedTreesCount = -1
     private var notificationText = "${plantedTreesCount} / 0"
     var notificationManager: NotificationManager? = null
@@ -45,21 +44,15 @@ class PlantingActivityService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        //notificationManager.
-        lateinit var notChannel: NotificationChannel
-        //if statements for backwards compatability
-         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-             notChannel = NotificationChannel(channelID, "PA Channel", NotificationManager.IMPORTANCE_DEFAULT)
-         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager!!.createNotificationChannel(notChannel as NotificationChannel)
-        }
+        val notChannel: NotificationChannel =
+            NotificationChannel(channelID, "PA Channel", NotificationManager.IMPORTANCE_DEFAULT)
+
+        notificationManager!!.createNotificationChannel(notChannel)
 
         //putting in Intent into the notification so that user can return to the activity when notification is clicked
         val backToAppintent = Intent(this, PlantingActivity::class.java)
 
-        //intent.addCategory(Intent.CATEGORY_LAUNCHER)
         backToAppintent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 0, backToAppintent, PendingIntent.FLAG_UPDATE_CURRENT)
 
@@ -74,8 +67,6 @@ class PlantingActivityService : Service() {
 
         startForeground(notificationID, notificationBuilder.build())
 
-        println("onStartCommand was called!!!")
-
         val pp: PlantPlan? = intent?.getParcelableExtra(EXTRA_PLANTING)
         val plantIntervalms = (pp?.plantInterval?.times(1000))
         if (plantIntervalms != null) {
@@ -83,7 +74,6 @@ class PlantingActivityService : Service() {
         }
 
         return START_STICKY
-        //return super.onStartCommand(intent, flags, startId)
     }
 
 
@@ -94,7 +84,6 @@ class PlantingActivityService : Service() {
 
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         nm.notify(notificationID, notificationBuilder.build())
-
     }
 
     //Code that maintains one cycle(time to plant 1 tree)

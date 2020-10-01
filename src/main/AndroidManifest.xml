@@ -8,11 +8,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/tre"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:versionCode="1"
+        android:versionName="1">
+
         <service
             android:name=".PlantingActivityService"
             android:enabled="true"
@@ -24,10 +27,7 @@
             android:label="@string/PlantingActivity_appBar_label"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".DisplayMessageActivity"
-            android:label="@string/display_message_appBar_label"
-            android:parentActivityName=".MainActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

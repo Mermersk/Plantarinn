@@ -17,8 +17,7 @@ import java.util.*
 
 class PlantingActivity : AppCompatActivity() {
 
-    val timer: Timer = Timer()
-    //private var cppInfo: TextView? = null
+    private val timer: Timer = Timer()
 
     private var mBound: Boolean = false
     private lateinit var plantingService : PlantingActivityService
@@ -38,9 +37,6 @@ class PlantingActivity : AppCompatActivity() {
         }
     }
 
-
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planting)
@@ -51,9 +47,8 @@ class PlantingActivity : AppCompatActivity() {
         Intent(this, PlantingActivityService::class.java).also { intent ->
             intent.putExtra(EXTRA_PLANTING, pp)
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(intent)
-            }
+
+            startForegroundService(intent)
         }
 
         val plantingGraphics = findViewById<PlantingMainGraphics>(R.id.plantingMainGraphics)
@@ -97,7 +92,6 @@ class PlantingActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onStart() {
         super.onStart()
-
     }
 
     //Code that maintains one cycle(time to plant 1 tree)
